@@ -4,7 +4,7 @@ In this project, I used Python, SQLAlchemy, Jupyter Notebook, and Pandas to make
 
 ## Navigating this repository
 - The [Resources](https://github.com/drainganggtb/sqlalchemy-challenge/tree/main/Resources) folder contains the .csv and .sqlite files used to create queries, graphs, and an API. 
-- The **app.py** file contains the code used to make the **Flask** API Climate App
+- The **app.py** file contains the code used to make the Flask API Climate App
 - The **climate_starter.ipynb** file contains the ORM queries and analysis.
     - The [Images](https://github.com/drainganggtb/sqlalchemy-challenge/tree/main/images) folder of this repo contains the graphical outputs
 
