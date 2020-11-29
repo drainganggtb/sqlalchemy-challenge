@@ -3,6 +3,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 import numpy as np
+import datetime as dt
 
 from flask import Flask, jsonify
 
@@ -40,11 +41,11 @@ def index():
         f"This page houses a list of temperature observations (tobs) "
         "from the most active station<br/><br/>"
 
-        f"/api/v1.0/_enter_start_date<br/>"
+        f"/api/v1.0/temp/enter_start_date<br/>"
         f"This page has a list of 'TMIN'. 'TAVG', 'TMAX' for all dates greater than or equal to the queried start date, "
         "be sure to use the format YYYY-MM-DD.<br/><br/>"
 
-        f"/api/v1.0/enter_start_date/enter_end_date<br/>"
+        f"/api/v1.0/temp/enter_start_date/enter_end_date<br/>"
         f"On this page, you will find the 'TMIN', 'TAVG', 'TMAX' for dates between the start and end dates (YYYY-MM-DD)<br/>"
     )
 
@@ -78,26 +79,30 @@ def temp():
     return jsonify(temp_dict)
 
 @app.route("/api/v1.0/temp/<start>")
-def start_only(start_date):
-    #go back to start date and get min/avg/max
-    start_date = dt.datetime.strptime(start, '%Y-%m-%d')
+def start_only(start):
+    #go back to start date and get min/avg/max until last data point
+    session=Session(engine)
+    start = dt.datetime.strptime(start, '%Y-%m-%d')
     end = dt.date(2017,8,23)
-    start_query=session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
-        filter(Measurements.date >= start).filter(Measurements.date <=end).all()
+    start_query=session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(
+        Measurement.date >= start).filter(Measurement.date <= end).all()
+    session.close()
     start_dict = list(np.ravel(start_query))
     return jsonify(start_dict)
-    
+
 
 @app.route("/api/v1.0/temp/<start>/<end>")
-def start_end(start,end):
-    #go between start/end date to get min/avg/max temp
-    start_date = dt.datetime.strptime(start,'%Y-%m-%d')
-    end_date = dt.datetime.strptime(end, '%Y-%m-%d')
-    se_query = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
-        filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+def start_end(start, end):
+    #go back to start date and get min/avg/max until the end point
+    session=Session(engine)
+    start = dt.datetime.strptime(start, '%Y-%m-%d')
+    end = dt.datetime.strptime(end, '%Y-%m-%d')
+    se_query=session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(
+        Measurement.date >= start).filter(Measurement.date <= end).all()
+    session.close()
     se_dict = list(np.ravel(se_query))
     return jsonify(se_dict)
-#######################################################################################
+
 if __name__ =='__main__':
     app.run(debug=True)
 
