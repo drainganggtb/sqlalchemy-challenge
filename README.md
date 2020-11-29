@@ -3,14 +3,14 @@
 In this project, I used Python, SQLAlchemy, Jupyter Notebook, and Pandas to make ORM queries and Matplotlib to create graphs based on the elucidated information. Additionally, a climate app/API using Flask was created from a provided sqlite file. 
 
 ## Navigating this repository
-- The [Resources](#Resources) folder contains the .csv and .sqlite files used to create queries, graphs, and an API. 
+- The [Resources](https://github.com/drainganggtb/sqlalchemy-challenge/tree/main/Resources) folder contains the .csv and .sqlite files used to create queries, graphs, and an API. 
 - The **app.py** file contains the code used to make the **Flask** API Climate App
 - The **climate_starter.ipynb** file contains the ORM queries and analysis.
-    - The [Images](#images) folder of this repo contains the graphical outputs
+    - The [Images](https://github.com/drainganggtb/sqlalchemy-challenge/tree/main/images) folder of this repo contains the graphical outputs
 
 # Step 1 - Climate Analysis and Exploration
 The starter notebook and hawaii.sqlite files were used to complete the analysis and exploration.
-- Tools like 'create_engine' and 'automap_base()' were used to connect to the sqlite database and reflect the tables into classes. 
+- Tools like `create_engine` and `automap_base()` were used to connect to the sqlite database and reflect the tables into classes. 
 
 ### Precipitation Analysis
 - Design a query to retrieve the last 12 months of precipitation data.
@@ -24,15 +24,13 @@ The starter notebook and hawaii.sqlite files were used to complete the analysis 
 ### Station Analysis
 - Design a query to calculate the most active stations.
     - List the stations and observation counts in descending order.
-    - Use functions such as 'func.min', 'func.max', 'func.count'' in the retrevals.
+    - Use functions such as `func.min`, `func.max`, `func.count` in the retrevals.
 - Design a query to retrieve the last 12 months of temperature observation data (tobs)
     - FIlter by the station with the highest number of observations
-    - Plot the results in a histogram with 'bins=12'
-![alt text](images/Waihee_temp.png)
-
+    - Plot the results in a histogram with `bins=12`
 ### Bonus Query
-- The starter notebook contains a function called calc_temps that will accept a start date and end date in the format %Y-%m-%d. The function will return the minimum, average, and maximum temperatures for that range of dates.
-- Use the calc_temps function to calculate the min, avg, and max temperatures for your trip using the matching dates from the previous year (i.e., use "2017-01-01" if your trip start date was "2018-01-01").
+- The starter notebook contains a function called `calc_temps` that will accept a start date and end date in the format `%Y-%m-%d`. The function will return the minimum, average, and maximum temperatures for that range of dates.
+- Use the `calc_temps` function to calculate the min, avg, and max temperatures for your trip using the matching dates from the previous year (i.e., use "2017-01-01" if your trip start date was "2018-01-01").
 - Plot the min, avg, and max temperature from your previous query as a bar chart.
     - Use the average temperature as the bar height.
     - Use the peak-to-peak (TMAX-TMIN) value as the y error bar (YERR).
@@ -41,7 +39,7 @@ The starter notebook and hawaii.sqlite files were used to complete the analysis 
 # Step 2 - Climate App
 In this activity, design a FLASK API based on the queries that were just developed
 - Use Flask to create routs
-- 'numpy', 'jsonify', and 'datetime' were also imported
+- `numpy`, `jsonify`, and `datetime` were also imported
 
 ## Routes
 '/'
@@ -49,7 +47,7 @@ In this activity, design a FLASK API based on the queries that were just develop
 - List all routes that are available.
 
 '/api/v1.0/precipitation'
-- Convert the query results to a dictionary using 'date' as the key and 'prcp' as the value.
+- Convert the query results to a dictionary using `date` as the key and `prcp` as the value.
 - Return the JSON representation of your dictionary.
 
 '/api/v1.0/stations'
@@ -61,5 +59,5 @@ In this activity, design a FLASK API based on the queries that were just develop
 
 '/api/v1.0/<start> and /api/v1.0/<start>/<end>'
 - Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range.
-- When given the start only, calculate 'TMIN', 'TAVG', and 'TMAX' for all dates greater than and equal to the start date.
-- When given the start and the end date, calculate the 'TMIN', 'TAVG', and 'TMAX' for dates between the start and end date inclusive.
+- When given the start only, calculate `TMIN`, `TAVG`, and `TMAX` for all dates greater than and equal to the start date.
+- When given the start and the end date, calculate the `TMIN`, `TAVG`, and `TMAX` for dates between the start and end date inclusive.
